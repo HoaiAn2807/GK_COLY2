@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${hangHoa.tenhang} + ' - The Coffee House'"></title>
+
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .size-btn { border: 1px solid #ccc; padding: 8px 18px; border-radius: 6px; cursor: pointer; }
+        .size-btn.active { background-color: #f7941d; color: #fff; border-color: #f7941d; }
+        .hover-card:hover { transform: translateY(-4px); transition: 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    </style>
+</head>
+
+<body>
+<!-- HEADER -->
+<div th:replace="fragments/header :: header"></div>
+
+<!-- MAIN -->
+<main class="container py-5 flex-fill">
+    <!-- BREADCRUMB -->
+    <nav class="mb-4">
+        <a th:href="@{/menu}" class="text-dark text-decoration-none fw-semibold">Menu</a>
+        <span class="text-secondary"> / </span>
+        <a th:href="@{/menu(maloai=${hangHoa.loaiHang.maloai})}"
+           class="text-dark text-decoration-none fw-semibold"
+           th:text="${hangHoa.loaiHang.tenloai}"></a>
+        <span class="text-secondary"> / </span>
+        <span class="text-muted" th:text="${hangHoa.tenhang}"></span>
+    </nav>
+
+    <div class="row align-items-center">
+        <!-- Ảnh sản phẩm -->
+        <div class="col-md-6 text-center">
+            <img th:src="@{'/images/' + ${hangHoa.hinhanh}}" alt="Ảnh sản phẩm"
+                 class="img-fluid rounded shadow-sm" style="max-width:420px;">
+        </div>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="col-md-6">
+            <h2 class="fw-bold mb-2" th:text="${hangHoa.tenhang}"></h2>
+
+            <!-- Giá -->
+            <p id="gia-hientai" class="text-warning fs-5 fw-semibold"
+               th:text="${#numbers.formatDecimal(hangHoa.giaMin, 0, 'COMMA', 0, 'POINT')} + ' đ'"></p>
+
+            <!-- Chọn size -->
+            <div class="mb-3">
+                <label class="fw-semibold d-block">Chọn size <span class="text-danger">(bắt buộc)</span></label>
+                <div class="mt-2 d-flex gap-2 flex-wrap" id="size-options">
+                    <button th:each="ct : ${hangHoa.chiTiet}"
+                            type="button"
+                            class="size-btn"
+                            th:data-gia="${ct.gia}"
+                            th:text="${ct.sizeNuoc.tensize}"
+                            onclick="chonSize(this)">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Nút đặt hàng -->
+            <button id="btnDatHang" class="btn text-white mt-3 px-4" style="background-color:#f7941d;">
+                Đặt giao tận nơi
+            </button>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- MÔ TẢ -->
+    <div>
+        <h5 class="fw-bold mb-3">Mô tả sản phẩm</h5>
+        <p th:text="${hangHoa.mota != null ? hangHoa.mota : 'Mô tả đang cập nhật...'}"
+           class="text-secondary lh-lg"></p>
+    </div>
+
+    <!-- SẢN PHẨM LIÊN QUAN -->
+    <div class="mt-5">
+        <h5 class="fw-bold mb-3">Sản phẩm liên quan</h5>
+        <div class="row row-cols-1 row-cols-md-5 g-3">
+            <div class="col" th:each="sp : ${spLienQuan}">
+                <a th:href="@{/chitiet(id=${sp.mahang})}" class="text-decoration-none text-dark">
+                    <div class="card border-0 shadow-sm hover-card text-center">
+                        <img th:src="@{'/images/' + ${sp.hinhanh}}" class="card-img-top rounded-top" alt="Ảnh liên quan">
+                        <div class="card-body p-2">
+                            <h6 class="fw-semibold" th:text="${sp.tenhang}"></h6>
+                            <p class="text-warning fw-semibold mb-0"
+                               th:text="${#numbers.formatDecimal(sp.giaMin, 0, 'COMMA', 0, 'POINT')} + ' đ'"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<div th:replace="fragments/footer :: footer"></div>
+
+<script>
+    let selectedSize = null;
+
+    function chonSize(btn) {
+        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedSize = btn.innerText.trim();
+
+        const gia = btn.getAttribute('data-gia');
+        document.getElementById('gia-hientai').innerText = Number(gia).toLocaleString('vi-VN') + ' đ';
+    }
+
+    document.getElementById("btnDatHang").addEventListener("click", function () {
+        const btn = this;
+
+        if (!selectedSize) {
+            const alertBox = document.createElement("div");
+            alertBox.className = "alert alert-danger position-fixed bottom-0 end-0 m-4 shadow";
+            alertBox.innerHTML = `<i class="bi bi-exclamation-triangle-fill"></i> Vui lòng chọn size trước khi đặt hàng!`;
+            document.body.appendChild(alertBox);
+            setTimeout(() => alertBox.remove(), 2500);
+            return;
+        }
+
+        btn.innerText = "Đang xử lý...";
+        btn.disabled = true;
+        btn.style.opacity = "0.7";
+
+        setTimeout(() => {
+            btn.innerText = "Đặt giao tận nơi";
+            btn.disabled = false;
+            btn.style.opacity = "1";
+
+            const alertBox = document.createElement("div");
+            alertBox.className = "alert alert-success position-fixed bottom-0 end-0 m-4 shadow";
+            alertBox.innerHTML = `
+        <i class="bi bi-check-circle-fill"></i>
+        Đặt hàng thành công! Cảm ơn bạn đã chọn size <strong>${selectedSize}</strong>. ☕
+      `;
+            document.body.appendChild(alertBox);
+            setTimeout(() => alertBox.remove(), 3000);
+        }, 1200);
+    });
+</script>
+
+</body>
+</html>

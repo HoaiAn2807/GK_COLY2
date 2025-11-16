@@ -1,0 +1,123 @@
+.tch-header {
+    background-color: #e57905; /* màu cam thương hiệu */
+    height: 62px; /* chiều cao gọn */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.tch-header .container {
+    width: 100%;
+    max-width: 1200px;
+}
+.tch-logo {
+    height: 54px; /* logo nhỏ gọn như ảnh */
+    object-fit: contain;
+}
+.menu-item {
+    color: #fff;
+    opacity: 0.8;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.menu-item i {
+    font-size: 16px;
+    opacity: 0.7;
+    margin-bottom: 3px;
+}
+
+.menu-item:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+.container{
+    padding: 24px 90px 16px;
+}
+.tch-footer {
+    background-color: #111;
+    font-size: 0.95rem;
+}
+.list-unstyled a {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 2;
+    width: fit-content;
+    margin-left:180px;
+}
+.search-box {
+    width: 900px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+}
+
+.search-box input,
+.search-box select {
+    font-size: 15px;
+    color: #444;
+}
+.search-box input:focus,
+.search-box select:focus {
+    outline: none;
+}
+
+.btn-warning {
+    background-color: #e57905;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #d46b00;
+}
+
+.jobs-section .card img {
+    height: 260px;
+    object-fit: cover;
+}
+.jobs-section .card {
+    border-radius: 10px;
+    overflow: hidden;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px); /* xuống cách 1 chút cho đẹp */
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+#location-options li {
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#location-options li:hover {
+    background-color: #f8f9fa;
+}
+
+#dropdownMenuButton {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+
+.location-select {
+    position: relative;
+    overflow: visible !important; /* rất quan trọng: tránh bị ẩn menu */
+}

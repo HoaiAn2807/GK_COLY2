@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - The Coffee House</title>
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        .sidebar-menu { border-right: 1px solid #eee; }
+        .category-link {
+            color: #000;
+            font-weight: 600;
+            display: block;
+            margin: 6px 0;
+            text-decoration: none;
+        }
+        .category-link:hover { color: #f7941d; }
+        .submenu { display: none; }
+        .submenu.show { display: block; }
+        .hover-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .fw-semibold { font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div th:replace="fragments/header :: header"></div>
+
+<section class="container py-5">
+    <div class="row">
+
+        <!-- SIDEBAR TRÁI -->
+        <div class="col-md-3">
+            <div class="sidebar-menu pe-3">
+                <ul class="list-unstyled category-list">
+
+                    <!-- Tất cả -->
+                    <li><a th:href="@{/menu}" class="category-link active"><i class="bi bi-dot text-warning"></i> Tất Cả</a></li>
+
+                    <!-- Cà Phê -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('cf-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> Cà Phê</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="cf-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=9}" class="subcategory-link">Cà Phê Máy</a></li>
+                            <li><a th:href="@{/menu?maloai=10}" class="subcategory-link">Cà Phê Việt Nam</a></li>
+                            <!-- ✅ KHÔNG thêm Cà Phê Tại Nhà ở đây -->
+                        </ul>
+                    </li>
+
+                    <!-- A-Mê -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('ame-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> A-Mê</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="ame-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=11}" class="subcategory-link">A-Mê Classic</a></li>
+                            <li><a th:href="@{/menu?maloai=12}" class="subcategory-link">A-Mê Đào</a></li>
+                            <li><a th:href="@{/menu?maloai=13}" class="subcategory-link">A-Mê Mơ</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Trà Trái Cây -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('tra-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> Trà Trái Cây</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="tra-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=14}" class="subcategory-link">Trà Đào Cam Sả</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Trà Sữa -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('trasua-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> Trà Sữa</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="trasua-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=15}" class="subcategory-link">Trà Sữa Oolong</a></li>
+                            <li><a th:href="@{/menu?maloai=16}" class="subcategory-link">Trà Sữa Hồng Trà</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Matcha -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('matcha-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> Matcha</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="matcha-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=17}" class="subcategory-link">Matcha Latte</a></li>
+                            <li><a th:href="@{/menu?maloai=18}" class="subcategory-link">Matcha Yến Mạch</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Chocolate -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('choco-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> Chocolate</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="choco-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=19}" class="subcategory-link">Chocolate Đá</a></li>
+                            <li><a th:href="@{/menu?maloai=20}" class="subcategory-link">Chocolate Nóng</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Thức uống đá xay -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('frappe-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> Thức uống đá xay</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="frappe-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=21}" class="subcategory-link">Frappe</a></li>
+                            <li><a th:href="@{/menu?maloai=22}" class="subcategory-link">Caramel Đá Xay</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Bánh & Snack -->
+                    <li>
+                        <a href="javascript:void(0)" class="category-link d-flex justify-content-between align-items-center"
+                           onclick="toggleSubmenu('snack-submenu')">
+                            <span><i class="bi bi-dot text-warning"></i> Bánh & Snack</span>
+                            <i class="bi bi-chevron-down small"></i>
+                        </a>
+                        <ul id="snack-submenu" class="submenu list-unstyled ms-3 mt-2">
+                            <li><a th:href="@{/menu?maloai=23}" class="subcategory-link">Bánh mặn</a></li>
+                            <li><a th:href="@{/menu?maloai=24}" class="subcategory-link">Bánh ngọt</a></li>
+                            <li><a th:href="@{/menu?maloai=25}" class="subcategory-link">Bánh Pastry</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- DANH SÁCH SẢN PHẨM PHẢI -->
+        <div class="col-md-9">
+
+            <!-- Nếu có loại đang chọn -->
+            <div th:if="${param.maloai != null}">
+                <h3 class="fw-bold mb-3 mt-2" th:text="${dsHangHoa[0].loaiHang.tenloai}"></h3>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col" th:each="hangHoa : ${dsHangHoa}"
+                         th:if="${hangHoa.loaiHang.maloai != 26}"> <!-- ✅ Ẩn cà phê tại nhà -->
+                        <div class="card h-100 border-0 shadow-sm hover-card text-center">
+                            <a th:href="@{/chitiet(id=${hangHoa.mahang})}" class="text-decoration-none text-dark">
+                                <img th:src="@{'/images/' + ${hangHoa.hinhanh}}" class="card-img-top" alt="Ảnh sản phẩm">
+                                <div class="card-body">
+                                    <h5 th:text="${hangHoa.tenhang}" class="fw-semibold"></h5>
+                                    <p th:text="${#numbers.formatDecimal(hangHoa.giaMin, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+                                       class="text-danger fw-bold mb-2"></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nếu chưa chọn loại (Tất cả) -->
+            <div th:if="${param.maloai == null}">
+                <div th:each="loai : ${dsLoaiHang}" th:if="${loai.maloai != 26}"> <!-- ✅ Bỏ loại 26 -->
+                    <h3 class="fw-bold mb-3 mt-5" th:text="${loai.tenloai}"></h3>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col" th:each="hangHoa : ${dsHangHoa}"
+                             th:if="${hangHoa.loaiHang.parent != null
+                                    and hangHoa.loaiHang.parent.maloai == loai.maloai
+                                    and hangHoa.loaiHang.maloai != 26}">
+                            <div class="card h-100 border-0 shadow-sm hover-card text-center">
+                                <a th:href="@{/chitiet(id=${hangHoa.mahang})}" class="text-decoration-none text-dark">
+                                    <img th:src="@{'/images/' + ${hangHoa.hinhanh}}" class="card-img-top" alt="Ảnh sản phẩm">
+                                    <div class="card-body">
+                                        <h5 th:text="${hangHoa.tenhang}" class="fw-semibold"></h5>
+                                        <p th:text="${#numbers.formatDecimal(hangHoa.giaMin, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+                                           class="text-danger fw-bold mb-2"></p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    function toggleSubmenu(id) {
+        document.getElementById(id).classList.toggle("show");
+    }
+</script>
+
+<!-- FOOTER -->
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

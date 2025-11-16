@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Coffee House - Trang Chủ</title>
+    <link rel="stylesheet" th:href="@{/css/BaiViet.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="layout/HeaderCN :: HeaderCN"></div>
+<div class="container my-5">
+    <div class="row g-5">
+
+        <!-- Cột bên trái: danh sách bài viết -->
+        <div class="col-lg-8">
+            <div class="article-item mb-5" th:each="bv : ${baivietPage.content}">
+                <div class="row g-3 align-items-start">
+                    <div class="col-md-6">
+                        <img th:src="@{'/images/' + ${bv.anh}}" class="article-img rounded-4 shadow-sm" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="fw-bold text-uppercase mb-2" th:text="${bv.tieude}"></h5>
+                        <p class="text-muted small mb-2" th:text="${bv.ngaydang}"></p>
+                        <p class="text-black small mb-0" th:text="${bv.noidung}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start mt-2 mb-5 ">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination mb-0">
+                        <!-- Trang trước -->
+                        <li class="page-item" th:classappend="${baivietPage.first} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/BaiViet(page=${baivietPage.number}, chude=${selectedChude})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+
+                        <!-- Các trang hiển thị -->
+                        <li class="page-item"
+                            th:each="i : ${#numbers.sequence(
+                    T(java.lang.Math).max(1, baivietPage.number + 1 - 2),
+                    T(java.lang.Math).min(baivietPage.totalPages, baivietPage.number + 1 + 2)
+                )}"
+                            th:classappend="${i == baivietPage.number + 1} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/BaiViet(page=${i}, chude=${selectedChude})}"
+                               th:text="${i}"></a>
+                        </li>
+
+                        <!-- Dấu ... nếu chưa đến cuối -->
+                        <li class="page-item disabled"
+                            th:if="${baivietPage.totalPages > baivietPage.number + 3}">
+                            <span class="page-link">...</span>
+                        </li>
+
+                        <!-- Trang cuối cùng -->
+                        <li class="page-item"
+                            th:if="${baivietPage.totalPages > 5}"
+                            th:classappend="${baivietPage.number + 1 == baivietPage.totalPages} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/BaiViet(page=${baivietPage.totalPages}, chude=${selectedChude})}"
+                               th:text="${baivietPage.totalPages}"></a>
+                        </li>
+
+                        <!-- Trang sau -->
+                        <li class="page-item" th:classappend="${baivietPage.last} ? 'disabled'">
+                            <a class="page-link"
+                               th:href="@{/BaiViet(page=${baivietPage.number + 2}, chude=${selectedChude})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Cột bên phải: sidebar -->
+        <div class="col-lg-4">
+            <div class="sidebar ps-4">
+                <h6 class="fw-bold text-uppercase mb-2">Chủ đề liên quan</h6>
+                <ul class="list-unstyled mb-4 small lh-lg">
+                    <li><a href="#" class="text-dark text-decoration-none">Chuyện Cà Phê</a></li>
+                    <li><a href="#" class="text-dark text-decoration-none">Pha Cà Phê</a></li>
+                </ul>
+
+                <h6 class="fw-bold text-uppercase mb-2">Teaholic</h6>
+                <ul class="list-unstyled mb-4 small lh-lg">
+                    <li><a href="#" class="text-dark text-decoration-none">Câu chuyện về trà</a></li>
+                    <li><a href="#" class="text-dark text-decoration-none">Pha Trà</a></li>
+                </ul>
+
+                <h6 class="fw-bold text-uppercase mb-2">Blog</h6>
+                <ul class="list-unstyled small lh-lg">
+                    <li><a href="#" class="text-dark text-decoration-none">Human of TCH</a></li>
+                    <li><a href="#" class="text-dark text-decoration-none">In The Mood</a></li>
+                    <li><a href="#" class="text-dark text-decoration-none">Review</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Phân trang -->
+
+<div th:replace="layout/FooterCN :: FooterCN"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

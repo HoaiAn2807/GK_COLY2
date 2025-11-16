@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'Cà Phê Tại Nhà - The Coffee House'">Cà Phê Tại Nhà - The Coffee House</title>
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main.flex-fill { flex: 1; }
+
+        .page-title {
+            font-weight: 700;
+            font-size: 22px;
+            border-bottom: 2px solid #f7941d;
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding-bottom: 4px;
+        }
+
+        .product-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            transition: all 0.25s ease-in-out;
+            background-color: #fff;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: #fff;
+            padding: 15px;
+        }
+
+        .product-title {
+            font-weight: 600;
+            font-size: 15px;
+            min-height: 45px;
+        }
+
+        .product-price {
+            color: #f7941d;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div th:replace="fragments/header :: header"></div>
+
+<!-- MAIN -->
+<main class="flex-fill">
+    <div class="container py-4">
+        <h2 class="page-title">Cà Phê Tại Nhà</h2>
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col" th:each="hangHoa : ${dsCaPhe}">
+                <a th:href="@{/chitiet(id=${hangHoa.mahang})}" class="text-decoration-none text-dark d-block h-100">
+                    <div class="product-card h-100">
+                        <img th:src="@{/images/{img}(img=${hangHoa.hinhanh})}" alt="Ảnh sản phẩm">
+                        <div class="card-body text-center">
+                            <h6 th:text="${hangHoa.tenhang}" class="product-title"></h6>
+                            <p th:text="${#numbers.formatDecimal(hangHoa.giaMin, 0, 'COMMA', 0, 'POINT')} + ' đ'"
+                               class="product-price mb-2"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

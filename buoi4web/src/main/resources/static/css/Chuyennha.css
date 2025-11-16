@@ -1,0 +1,136 @@
+/* --- Hiện dropdown khi hover --- */
+/* Hiển thị khi hover */
+.topbar {
+    background-color: #fff;
+    font-size: 14px;
+    color: #444;
+    padding: 6px 0;
+}
+.topbar .container {
+    gap: 80px; /* khoảng cách giữa 2 cụm */
+}
+.topbar-item {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* khoảng cách giữa icon và chữ */
+}
+.topbar-icon {
+    color: #f7941d; /* màu vàng cam */
+    font-size: 16px;
+    position: relative;
+    top: 1px;
+}
+.topbar-item strong {
+    color: #000; /* làm đậm số điện thoại */
+}
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+
+}
+
+/* Ẩn mặc định */
+.dropdown-menu {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    border: none;
+    background: rgba(255, 255, 255, 0.95); /* nền trắng mờ nhẹ */
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+
+/* Mega menu toàn chiều ngang */
+.mega-menu {
+    width: 100%;
+    left: 0;
+    padding: 40px 0;
+}
+
+/* Căn giữa 3 cột */
+
+.mega-menu .row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 100px; /* khoảng cách giữa 3 cột */
+}
+
+/* Cột */
+.mega-menu .col-md-4 {
+    flex: 0 0 220px; /* độ rộng cố định để 3 cột đều nhau */
+    text-align: left;
+}
+
+/* Tiêu đề + gạch */
+.mega-menu h6 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    text-align: left;
+    display: block;
+    position: relative;
+    padding-bottom: 10px; /* cách chữ và gạch */
+    margin-bottom: 20px;
+}
+
+/* Gạch dưới cùng hàng */
+.mega-menu h6::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 300px;          /* chiều dài gạch giống nhau */
+    height: 1px;           /* độ dày */
+    background-color: #000; /* màu gạch */
+    border-radius: 2px;
+}
+
+
+/* Item bên trong */
+.dropdown-item {
+    padding: 4px 0;
+    color: #555;
+    font-size: 15px;
+}
+
+.dropdown-item:hover {
+    color: #f7941d;
+    background: transparent;
+}
+
+/* Tăng khoảng cách đều */
+.mega-menu .dropdown-item + .dropdown-item {
+    margin-top: 6px;
+}
+
+/* Header chữ khi hover */
+.nav-link:hover {
+    color: #f7941d !important;
+}
+header {
+
+    background: #fff;
+}
+header .nav-link {
+    font-weight: 600;
+    color: #000 !important;
+    margin: 0 10px;
+}
+.gach{
+    border-bottom: 1px solid #eee;
+}
+Body
+  .filter-btn {border-radius: 80px; transition: all 0.3s ease;}
+.filter-btn.btn-outline-secondary {color: #555; border-color: #ccc; background-color: #fff;}
+.filter-btn.btn-outline-secondary:hover {background-color: #f7941d; color: #fff; border-color: #f7941d;}
+.filter-btn.active { background-color: #f7941d; color: #fff; border-color: #f7941d;}
+.card-img-top {
+    object-fit: cover;
+    width: 100%;
+    height: 350px; /* cố định chiều cao đồng đều */
+}
+

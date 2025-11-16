@@ -1,0 +1,58 @@
+.article-item {
+    border: none;
+}
+
+.article-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.article-img:hover {
+    transform: scale(1.02);
+}
+
+.sidebar {
+    position: sticky;
+    top: 90px; /* khoảng cách với header, điều chỉnh cho phù hợp */
+    height: fit-content;
+    align-self: flex-start; /* đảm bảo sticky hoạt động trong grid bootstrap */
+}
+
+.sidebar h6 {
+    font-size: 14px;
+    color: #e27600;
+    letter-spacing: 0.5px;
+}
+
+.sidebar ul li {
+    margin-bottom: 5px;
+}
+
+.sidebar a:hover {
+    color: #e27600;
+    transition: color 0.2s ease;
+}
+
+.pagination .page-item .page-link {
+    border: 1px solid #eee;
+    color: #333;
+    border-radius: 6px;
+    margin: 0 4px;
+    padding: 8px 14px;
+    transition: all 0.2s ease;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #f47c20; /* cam */
+    color: white;
+    border: none;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;
+    pointer-events: none;
+    background-color: #f8f8f8;
+}

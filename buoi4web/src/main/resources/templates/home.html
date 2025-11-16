@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>The Coffee House - Trang chủ</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /* --- Giữ nguyên toàn bộ CSS cũ của bạn --- */
+        .card-shadow { box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 8px; transition: transform .2s ease, box-shadow .2s ease; border:none; }
+        .card-shadow:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .product-card-img { padding:1.5rem; background:#fdfbf8; }
+        .product-card-title { font-size:1rem; font-weight:500; margin-bottom:.25rem; }
+        .product-card-price { font-size:.9rem; color:#6c757d!important; }
+        .large-promo-image img { width:100%; height:100%; object-fit:cover; border-radius:8px; }
+        .section-bg-light { background-color:#fdfaf3; }
+        .blog-card .img-container { border-radius:8px; overflow:hidden; }
+        .blog-card .img-container img { transition:transform .3s ease; }
+        .blog-card:hover .img-container img { transform:scale(1.05); }
+        .section-subtitle { font-weight:600; font-size:1.5rem; margin-bottom:1.5rem; padding-left:1rem; border-left:4px solid #E67E22; }
+        #bannerCarousel .carousel-item { height:500px; }
+        #bannerCarousel .carousel-item img { object-fit:cover; height:100%; width:100%; }
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/header :: siteHeader"></div>
+
+<!-- Banner -->
+<section id="banner">
+    <div id="bannerCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active"><img src="/images/banner1.jpg" class="d-block w-100" alt="Banner 1"></div>
+            <div class="carousel-item"><img src="/images/banner2.jpg" class="d-block w-100" alt="Banner 2"></div>
+            <div class="carousel-item"><img src="/images/banner3.jpg" class="d-block w-100" alt="Banner 3"></div>
+        </div>
+        <a class="carousel-control-prev" href="#bannerCarousel" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span></a>
+        <a class="carousel-control-next" href="#bannerCarousel" role="button" data-slide="next"><span class="carousel-control-next-icon"></span></a>
+    </div>
+</section>
+
+<main>
+    <!-- KHÁM PHÁ THÊM -->
+    <section class="container mt-5">
+        <h2 class="mb-4">KHÁM PHÁ THÊM</h2>
+        <div class="row">
+            <!-- Cột trái -->
+            <div class="col-md-6 mb-4">
+                <div class="large-promo-image card-shadow h-100">
+                    <img src="/images/home1.jpg" class="img-fluid" alt="Promo Banner Left">
+                </div>
+            </div>
+
+            <!-- Cột phải -->
+            <div class="col-md-6 mb-4">
+                <div class="row">
+                    <!-- Sản phẩm 1 -->
+                    <div class="col-6" th:if="${not #lists.isEmpty(latestProducts)}">
+                        <div class="card h-100 card-shadow text-center">
+                            <a th:href="@{'/product/' + ${latestProducts[0].mahang}}">
+                                <img th:src="@{'/images/' + ${latestProducts[0].hinhanh}}"
+                                     class="card-img-top product-card-img"
+                                     th:alt="${latestProducts[0].tenhang}">
+                            </a>
+                            <div class="card-body py-2">
+                                <h5 class="product-card-title">
+                                    <a th:href="@{'/product/' + ${latestProducts[0].mahang}}"
+                                       class="text-dark"
+                                       th:text="${latestProducts[0].tenhang}">Tên sản phẩm</a>
+                                </h5>
+                                <p class="product-card-price"
+                                   th:text="${#numbers.formatDecimal(latestProducts[0].discountPrice != null ? latestProducts[0].discountPrice : latestProducts[0].basePrice, 0, 0)} + ' đ'">Giá</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sản phẩm 2 -->
+                    <div class="col-6" th:if="${not #lists.isEmpty(saleProducts)}">
+                        <div class="card h-100 card-shadow text-center">
+                            <a th:href="@{'/product/' + ${saleProducts[0].mahang}}">
+                                <img th:src="@{'/images/' + ${saleProducts[0].hinhanh}}"
+                                     class="card-img-top product-card-img"
+                                     th:alt="${saleProducts[0].tenhang}">
+                            </a>
+                            <div class="card-body py-2">
+                                <h5 class="product-card-title">
+                                    <a th:href="@{'/product/' + ${saleProducts[0].mahang}}"
+                                       class="text-dark"
+                                       th:text="${saleProducts[0].tenhang}">Tên sản phẩm</a>
+                                </h5>
+                                <p class="product-card-price"
+                                   th:text="${#numbers.formatDecimal(saleProducts[0].discountPrice != null ? saleProducts[0].discountPrice : saleProducts[0].basePrice, 0, 0)} + ' đ'">Giá KM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHẦN MỚI: TRÀ XANH TÂY BẮC --><section class="container my-5 py-3">
+    <div class="row align-items-center">
+        <!-- Cột trái: Ảnh minh họa lớn --><div class="col-lg-6 mb-4 mb-lg-0">
+        <img src="/images/Screenshot%202025-10-21%20142549.png" class="img-fluid mb-4" alt="Trà Xanh Tây Bắc">
+    </div>
+        <!-- Cột phải: Nội dung quảng cáo --><div class="col-lg-6">
+        <div class="text-center text-lg-left">
+            <!-- Ảnh tiêu đề --><img src="/images/traxanh_taybac.png" class="img-fluid mb-4" alt="Trà xanh TÂY BẮC - Vị mộc từ nhà, cho khách miền xuôi">
+
+            <!-- Văn bản mô tả --><p class="promo-section-text">
+            Được trồng trọt và chăm chút kỹ lưỡng, nuôi dưỡng từ thổ nhưỡng phì nhiêu, nguồn nước mát lành, bao bọc bởi mây và sương cùng nền nhiệt độ mát mẻ quanh năm, những búp trà ở Tây Bắc mập mạp và xanh mướt, hội tụ đầy đủ dưỡng chất, sinh khí, và tinh hoa đất trời. Chính khí hậu đặc trưng cùng phương pháp canh tác của đồng bào dân tộc nơi đây đã tạo ra Trà Xanh vị mộc dễ uống, dễ yêu, không thể trộn lẫn với bất kỳ vùng miền nào khác.
+        </p>
+
+            <!-- Nút hành động --><a href="#" class="btn btn-promo btn-block mt-4">Thử ngay</a>
+        </div>
+    </div>
+    </div>
+</section>
+
+    <!-- PHẦN MỚI: CHUYỆN NHÀ --><section class="section-bg-light py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="mb-2">Chuyện Nhà</h2>
+        </div>
+
+        <!-- Hàng 1: Coffeeholic -->
+        <h3 class="section-subtitle">Coffeeholic</h3>
+        <div class="row">
+            <!-- Cột 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="blog-card">
+                    <a href="#" class="d-block img-container">
+                        <img src="/images/Screenshot%202025-10-21%20145400.png" class="img-fluid" alt="Bắt gặp Sài Gòn xưa">
+                    </a>
+                    <div class="blog-card-body pt-3">
+                        <p class="blog-date text-muted">01/10/2025</p>
+                        <h5 class="blog-title"><a href="#" class="text-dark">BẮT GẶP SÀI GÒN XƯA TRONG MÓN UỐNG...</a></h5>
+                        <p class="blog-excerpt">Dẫu qua bao nhiêu lớp sóng thời gian, người ta vẫn có thể tìm lại những dấu ấn thăng trầm của một Sài Gòn xưa cũ.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Cột 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="blog-card">
+                    <a href="#" class="d-block img-container">
+                        <img src="/images/Screenshot%202025-10-21%20145409.png" class="img-fluid" alt="Chỉ chọn cà phê mới">
+                    </a>
+                    <div class="blog-card-body pt-3">
+                        <p class="blog-date text-muted">30/10/2025</p>
+                        <h5 class="blog-title"><a href="#" class="text-dark">CHỈ CHỌN CÀ PHÊ MỚI SANG NHƯNG CŨNG...</a></h5>
+                        <p class="blog-excerpt">Thực chất, bạn không nhất thiết phải làm gì to tát để tạo nên một ngày rực rỡ. Chỉ cần bắt đầu từ những việc nhỏ nhặt nhất.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Cột 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="blog-card">
+                    <a href="#" class="d-block img-container">
+                        <img src="/images/Screenshot%202025-10-21%20145425.png" class="img-fluid" alt="Văn hoá cà phê">
+                    </a>
+                    <div class="blog-card-body pt-3">
+                        <p class="blog-date text-muted">12/02/2025</p>
+                        <h5 class="blog-title"><a href="#" class="text-dark">SIGNATURE - BIỂU TƯỢNG VĂN HOÁ CÀ PHÊ...</a></h5>
+                        <p class="blog-excerpt">Mới đây, các "tín đồ" cà phê đang bàn tán xôn xao về SIGNATURE - Biểu tượng văn hóa cà phê của The Coffee House.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hàng 2: Teaholic -->
+        <h3 class="section-subtitle mt-5">Teaholic</h3>
+        <div class="row">
+            <!-- Cột 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="blog-card">
+                    <a href="#" class="d-block img-container">
+                        <img src="/images/Screenshot%202025-10-21%20145445.png" class="img-fluid" alt="Trung thu">
+                    </a>
+                    <div class="blog-card-body pt-3">
+                        <p class="blog-date text-muted">19/09/2025</p>
+                        <h5 class="blog-title"><a href="#" class="text-dark">TRUNG THU NÀY, SAO BẠN KHÔNG TỰ CH...</a></h5>
+                        <p class="blog-excerpt">Bạn có từng nghĩ, "Trung thu thời nay có gì đâu mà chơi?" hay "Trung thu cũng ngày càng chán?".</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Cột 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="blog-card">
+                    <a href="#" class="d-block img-container">
+                        <img src="/images/Screenshot%202025-10-22%20120020.png" class="img-fluid" alt="Bộ sưu tập tết">
+                    </a>
+                    <div class="blog-card-body pt-3">
+                        <p class="blog-date text-muted">16/01/2025</p>
+                        <h5 class="blog-title"><a href="#" class="text-dark">BỘ SƯU TẬP CẦU TOÀN KÈO THƠM: "VÍA"...</a></h5>
+                        <p class="blog-excerpt">Tết này, vẫn giống Tết xưa, không hề mới mẻ nếu vắng hoa tết truyền thống mà còn thiếu món quà ý nghĩa.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Cột 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="blog-card">
+                    <a href="#" class="d-block img-container">
+                        <img src="/images/Screenshot%202025-10-22%20120032.png" class="img-fluid" alt="Khuấy để thấy trăng">
+                    </a>
+                    <div class="blog-card-body pt-3">
+                        <p class="blog-date text-muted">16/08/2025</p>
+                        <h5 class="blog-title"><a href="#" class="text-dark">'KHUẤY ĐỂ THẤY TRĂNG' - KHUẤY LÊN...</a></h5>
+                        <p class="blog-excerpt">Năm 2022 ảm đạm bởi các sắc xám, khiến tinh thần gần như rệu rã. Mùa lễ hội mong chờ nhất.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </main>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#bannerCarousel').carousel();
+    });
+</script>
+
+</body>
+</html>

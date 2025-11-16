@@ -1,0 +1,121 @@
+<header th:fragment="HeaderCN" xmlns:th="http://www.w3.org/1999/xhtml">
+    <link rel="stylesheet" th:href="@{/css/Chuyennha.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="d-flex align-items-center topbar-item">
+                <i class="bi bi-geo-alt-fill topbar-icon"></i>
+                <span>84 Cửa hàng khắp cả nước</span>
+            </div>
+            <div class="d-flex align-items-center topbar-item">
+                <i class="bi bi-telephone-fill topbar-icon"></i>
+                <span>Đặt hàng: <strong>1800.6936</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand fs-4" th:href="@{/}">THE COFFEE HOUSE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Menu chính căn giữa -->
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/coffee}">Cà phê</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/menu}">Menu</a></li>
+                    <li class="nav-item dropdown position-static">
+                        <a class="nav-link dropdown-toggle" href="#" id="chuyenNhaMenu">Chuyện Nhà</a>
+                        <div class="dropdown-menu mega-menu shadow p-4 mt-0 border-0" aria-labelledby="chuyenNhaMenu">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4">
+                                        <h6 class="fw-bold border-bottom pb-2">Coffeeholic</h6>
+                                        <a href="#" class="dropdown-item">#chuyencaphe</a>
+                                        <a href="#" class="dropdown-item">#phacaphe</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="fw-bold border-bottom pb-2">Teaholic</h6>
+                                        <a href="#" class="dropdown-item">#cauchuyenvetra</a>
+                                        <a href="#" class="dropdown-item">#phatra</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h6 class="fw-bold border-bottom pb-2">Blog</h6>
+                                        <a href="#" class="dropdown-item">#HumanofTCH</a>
+                                        <a href="#" class="dropdown-item">#inthemood</a>
+                                        <a href="#" class="dropdown-item">#Review</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/stores-page}">Cửa hàng</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/tuyendung}">Tuyển dụng</a></li>
+                </ul>
+
+                <!-- Nút Đăng Ký / Đăng Nhập sát phải -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item" th:if="${session.username == null}">
+                        <a class="nav-link text-primary" th:href="@{/register}">
+                            <i class="bi bi-person-plus"></i> Đăng Ký
+                        </a>
+                    </li>
+                    <li class="nav-item" th:if="${session.username == null}">
+                        <a class="nav-link text-success" th:href="@{/login}">
+                            <i class="bi bi-box-arrow-in-right"></i> Đăng Nhập
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" th:if="${session.username != null}">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                           th:text="${session.username}">Tài khoản</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" th:href="@{/profile}">Trang cá nhân</a></li>
+                            <li><a class="dropdown-item text-danger" th:href="@{/logout}">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="gach"></div>
+
+    <!-- Chuyện Nhà intro -->
+    <h2 class="fw-bold fs-5 mb-2 mt-4 text-center">CHUYỆN NHÀ</h2>
+    <p class="text-secondary mb-4" style="max-width: 700px; margin: 0 auto;">
+        The Coffee House sẽ là nơi mọi người xích lại gần nhau, đề cao giá trị kết nối con người và sẻ chia
+        thân tình bên những tách cà phê, ly trà đượm hương, truyền cảm hứng về lối sống hiện đại.
+    </p>
+
+    <!-- Nút lọc -->
+    <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
+        <a th:href="@{/chuyennha}"
+           class="btn filter-btn btn-outline-secondary px-4 py-2 fw-semibold"
+           th:classappend="${selectedChude == null} ? ' active'">Tất cả</a>
+        <a th:href="@{/BaiViet(chude='Coffeeholic')}"
+           class="btn filter-btn btn-outline-secondary px-4 py-2 fw-semibold"
+           th:classappend="${selectedChude == 'Coffeeholic'} ? ' active'">Coffeeholic</a>
+        <a th:href="@{/BaiViet(chude='Teaholic')}"
+           class="btn filter-btn btn-outline-secondary px-4 py-2 fw-semibold"
+           th:classappend="${selectedChude == 'Teaholic'} ? ' active'">Teaholic</a>
+        <a th:href="@{/BaiViet(chude='Blog')}"
+           class="btn filter-btn btn-outline-secondary px-4 py-2 fw-semibold"
+           th:classappend="${selectedChude == 'Blog'} ? ' active'">Blog</a>
+    </div>
+
+    <script>
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          });
+        });
+    </script>
+</header>

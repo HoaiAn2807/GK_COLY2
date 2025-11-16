@@ -1,0 +1,162 @@
+/* ==========================================================
+   🌟 HEADER CƠ BẢN
+   ========================================================== */
+
+/* Menu chữ trên thanh điều hướng */
+header .nav-link {
+    font-weight: 600;
+    color: #000 !important;
+    margin: 0 10px;
+}
+header .nav-link:hover {
+    color: #f7941d !important;
+}
+
+/* ==========================================================
+   ☕ SIDEBAR MENU DANH MỤC
+   ========================================================== */
+.sidebar-menu {
+    border-right: 1px solid #eee; /* Vạch kẻ bên phải */
+    height: 100%;
+    padding-right: 15px;
+}
+
+/* Danh mục chính */
+.category-list li {
+    margin-bottom: 5px;
+}
+
+.category-link {
+    display: block;
+    padding: 5px 0;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.category-link:hover {
+    color: #f7941d;
+}
+
+.category-link.active {
+    color: #f7941d;
+    font-weight: 600;
+}
+
+/* Submenu con */
+.submenu {
+    display: none;
+    border-left: 2px solid #f7941d20;
+    padding-left: 10px;
+}
+.submenu.show {
+    display: block;
+}
+
+.subcategory-link {
+    display: block;
+    color: #666;
+    text-decoration: none;
+    padding: 4px 0;
+    font-size: 0.95rem;
+}
+
+.subcategory-link:hover {
+    color: #f7941d;
+    font-weight: 600;
+}
+
+/* ==========================================================
+   📦 CARD SẢN PHẨM
+   ========================================================== */
+.card {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+.card img {
+    border-radius: 15px 15px 0 0;
+}
+
+/* ==========================================================
+   🎨 CÁC THÀNH PHẦN GIAO DIỆN PHỤ
+   ========================================================== */
+.bg-light {
+    background-color: #fafafa !important;
+}
+.top-bar {
+    font-size: 0.9rem;
+    color: #444;
+}
+.top-bar i {
+    margin-right: 4px;
+}
+
+/* ==========================================================
+   🦶 FOOTER DƯỚI CHÂN TRANG
+   ========================================================== */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main.flex-fill {
+    flex: 1 0 auto;
+}
+
+footer {
+    margin-top: auto;
+}
+
+/* ==========================================================
+   🎯 HIỆU ỨNG HOVER CHO CARD
+   ========================================================== */
+.hover-card {
+    transition: all 0.3s ease;
+}
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ==========================================================
+   📌 HEADER CỐ ĐỊNH TOÀN BỘ (TOP BAR + NAVBAR)
+   ========================================================== */
+header {
+    position: fixed;       /* Cố định toàn bộ header */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1040;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ⚠️ Phần này BẮT BUỘC GIỮ — chừa khoảng trống header */
+body {
+    padding-top: 120px; /* điều chỉnh nếu header cao hơn/thấp hơn */
+}
+
+/* ==========================================================
+   🧭 CỐ ĐỊNH THANH MENU BÊN TRÁI TRONG TRANG MENU
+   ========================================================== */
+.col-md-3 {
+    position: relative; /* Đảm bảo sticky hoạt động */
+}
+
+.sidebar-menu {
+    position: sticky;
+    top: 90px; /* cách phần header */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    border-right: 1px solid #eee;
+    padding-right: 15px;
+    background-color: #fff;
+    z-index: 10;
+}
+
+
